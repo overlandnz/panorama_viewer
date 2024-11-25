@@ -1,15 +1,15 @@
 library panorama_viewer_plus;
 
-import 'src/js_helper.dart';
-
-import 'src/panorama_web_widget.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'src/panorama_viewer.dart';
 
 class CustomPanoramaViewer extends StatefulWidget {
-  const CustomPanoramaViewer({super.key, required this.imagePath, this.isAssetImage, this.height, this.width});
+  const CustomPanoramaViewer(
+      {super.key,
+      required this.imagePath,
+      this.isAssetImage,
+      this.height,
+      this.width});
 
   final bool? isAssetImage;
   final String imagePath;
@@ -51,15 +51,10 @@ class _CustomPanoramaViewerState extends State<CustomPanoramaViewer> {
     panorama = PanoramaViewer(
       animSpeed: .1,
       onViewChanged: onViewChanged,
-      child: isAssetImage! ? Image.asset(imagePath!) : Image.network(imagePath!),
+      child:
+          isAssetImage! ? Image.asset(imagePath!) : Image.network(imagePath!),
     );
-    return (kIsWeb && (GetPlatform.isAndroid || GetPlatform.isIOS) && (context.isPhone || (context.isTablet)))
-        ? PanoramaWebWidget(
-      imagePath: isAssetImage! ? "${getImageUrl()}/$imagePath" : imagePath!,
-      h: height! <= 0 ? deviceSize.height : height,
-      w: width! <= 0 ? deviceSize.width : width,
-    )
-        : ClipRRect(
+    return ClipRRect(
       child: Container(
         height: height! <= 0 ? deviceSize.height : height,
         width: width! <= 0 ? deviceSize.width : width,
